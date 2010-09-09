@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <title>XMMSinatra</title>
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+                <link rel="stylesheet" type="text/css" href="style.css" />
+        </head>
+        <body>
+                <div id="header">
+                        XMMSinatra
+                </div>
+
+                <div id="info">
+                        <span id="id"></span>
+                        <span id="artist"></span>
+                        <span id="title"></span>
+                </div>
+
+                <div id="menu">
+                        <ul>
+                                <li><a id="previous"><img src="http://cdn.dustball.com/control_start_blue.png" /> Previous</a></li>
+                                <li><a id="next"><img src="http://cdn.dustball.com/control_end_blue.png" /> Next</a></li>
+                                <li><a id="pause"><img src="http://cdn.dustball.com/control_pause_blue.png" /> Pause</a></li>
+                                <li><a id="play"><img src="http://cdn.dustball.com/control_play_blue.png" /> Play</a></li>
+                                <li><img src="http://cdn.dustball.com/music.png" /></li>
+                                <li><input type="text" id="search" value="Search" /></li>
+                        </ul>
+                </div>
+
+                <div id="playlist">
+                </div>
+
+                <script type="text/javascript">
+                        $(function () {
+                                function updateInfo() {
+                                        $.getJSON("/info", function (data) {
+                                                if (data.id != $("#id").html()) {
+                                                        $("#id").html(data.id);
+                                                        $("#artist").html(data.artist);
+                                                        $("#title").html(data.title);
+                                                        updatePlaylist();
+                                                }
+                                        });
+                                };
+
+                                function updatePlaylist() {
+                                        $.getJSON("/playlist", function (data) {
+                                                $("#playlist").html("");
+
+                                                $.each(data.items, function (i, item) {
+                                                        if (item.id == $("#id").html()) {
+                                                                $("#playlist").append("<div class=\"item active\"><span class=\"pid\">" + i + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                        } else {
+                                                                $("#playlist").append("<div class=\"item\"><span class=\"pid\">" + i + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                        }
+                                                });
+
+                                                $(".item").click(function () {
+                                                        $.get('/select/' + $(this).find(".pid").html());
+                                                        setTimeout(updateInfo, 500);
+                                                });
+                                        });
+                                };
+
+                                updateInfo();
+                                setInterval(updateInfo, 10000);
+
+                                $("#pause").click(function () {
+                                        $.get('/pause');
+                                        setTimeout(updateInfo, 500);
+                                });
+
+                                $("#play").click(function () {
+                                        $.get('/play');
+                                        setTimeout(updateInfo, 500);
+                                });
+
+                                $("#previous").click(function () {
+                                        $.get('/prev');
+                                        setTimeout(updateInfo, 500);
+                                });
+
+                                $("#next").click(function () {
+                                        $.get('/next');
+                                        setTimeout(updateInfo, 500);
+                                });
+
+                                $("#search").keyup(function (event) {
+                                        if (event.keyCode == '13') {
+                                                $.get("/search/" + $("#search").val());
+                                                setTimeout(updatePlaylist, 500);
+                                        }
+                                });
+
+                                $(".item").click(function () {
+                                        $.get('/select/' + $(this).find(".pid").html());
+                                        setTimeout(updateInfo, 500);
+                                });
+                        });
+                </script>
+        </body>
+</html>

@@ -1,0 +1,120 @@
+html, body {
+        margin: 0;
+        padding: 20px;
+
+        background: #222;
+        color: #eee;
+
+        font-family: "Droid Sans", corbel, sans;
+        font-size: 12pt;
+}
+
+#header {
+        font-size: 64pt;
+        color: #282828;
+        position: absolute;
+        top: 40px;
+        right: 60px;
+}
+
+#menu li {
+        display: inline-block;
+        background: #242424;
+        background: -webkit-gradient(linear, left top, left bottom, from(#282828), to(#202020));
+        background: -moz-linear-gradient(top, #282828, #202020);
+        margin: 2px;
+        padding: 8px;
+        border: 1px solid #111;
+        -moz-border-radius: 9px;
+        -webkit-border-radius: 9px;
+        border-radius: 9px;
+        -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+
+#menu li:hover {
+        border: 1px solid #404040;
+}
+
+#search {
+        background: transparent;
+        border: none;
+        color: #aaa;
+        font-style: italic;
+}
+
+#menu a {
+        cursor: pointer;
+        color: #89a;
+        text-decoration: none;
+        font-size: 11pt;
+}
+
+#menu img {
+        position: relative;
+        top: 3px;
+}
+
+#id, .id {
+        display: none;
+}
+
+#artist {
+        font-size: 24pt;
+        padding: 8px;
+        color: #58c;
+}
+
+#title {
+        font-size: 18pt;
+        padding: 8px;
+}
+
+#playlist {
+        padding: 16px;
+        color: #666;
+        font-family: corbel, sans;
+        font-weight: 0;
+}
+
+.item {
+        cursor: pointer;
+        padding: 2px;
+}
+
+.item:nth-child(even) {
+        background: #242424;
+}
+
+.item .pid {
+        display: inline-block;
+        width: 40px;
+        text-align: right;
+        font-size: 14pt;
+        color: #333;
+        padding-right: 4px;
+}
+
+.item .pid:after {
+        content: '. '
+}
+
+.item .artist {
+        padding: 5px;
+        color: #444;
+}
+
+.item .title {
+        padding: 5px;
+}
+
+.item.active {
+        color: #fff;
+        padding: 6px;
+        font-family: "Droid Sans", corbel, sans;
+}
+
+.item.active .artist {
+        color: #58c;
+}
