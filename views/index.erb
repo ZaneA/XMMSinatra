@@ -15,6 +15,7 @@
                         <span id="id"></span>
                         <span id="artist"></span>
                         <span id="title"></span>
+                        <span id="album"></span>
                 </div>
 
                 <div id="menu">
@@ -33,12 +34,15 @@
 
                 <script type="text/javascript">
                         $(function () {
+                                var lastAlbum = "";
+
                                 function updateInfo() {
                                         $.getJSON("/info", function (data) {
                                                 if (data.id != $("#id").html()) {
                                                         $("#id").html(data.id);
                                                         $("#artist").html(data.artist);
                                                         $("#title").html(data.title);
+                                                        $("#album").html(data.album);
                                                         updatePlaylist();
                                                 }
                                         });
@@ -49,6 +53,11 @@
                                                 $("#playlist").html("");
 
                                                 $.each(data.items, function (i, item) {
+                                                        if (lastAlbum != item.album) {
+                                                                lastAlbum = item.album;
+                                                                $("#playlist").append("<div class=\"albumitem\">" + item.album + "</div>");
+                                                        }
+
                                                         if (item.id == $("#id").html()) {
                                                                 $("#playlist").append("<div class=\"item active\"><span class=\"pid\">" + i + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
                                                         } else {

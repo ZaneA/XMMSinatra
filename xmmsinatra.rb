@@ -21,10 +21,10 @@ get '/info' do
         @id = xmms.playback_current_id.wait.value
 
         if (@id == 0)
-                "{\"id\": \"\", \"artist\": \"\", \"title\": \"\"}"
+                "{\"id\": \"\", \"artist\": \"\", \"album\": \"\", \"title\": \"\"}"
         else
                 @info = xmms.medialib_get_info(@id).wait.value.to_propdict
-                "{\"id\": \"#{@info[:id]}\", \"artist\": \"#{@info[:artist]}\", \"title\": \"#{@info[:title]}\"}"
+                "{\"id\": \"#{@info[:id]}\", \"artist\": \"#{@info[:artist]}\", \"album\": \"#{@info[:album]}\", \"title\": \"#{@info[:title]}\"}"
         end
 end
 
@@ -37,7 +37,10 @@ get '/playlist' do
                         next
                 end
                 @info = xmms.medialib_get_info(id).wait.value.to_propdict
-                @body += "{\"id\": \"#{@info[:id]}\", \"artist\": \"#{@info[:artist]}\", \"title\": \"#{@info[:title]}\"},"
+                if (!index.zero?)
+                        @body += ","
+                end
+                @body += "{\"id\": \"#{@info[:id]}\", \"artist\": \"#{@info[:artist]}\", \"album\": \"#{@info[:album]}\", \"title\": \"#{@info[:title]}\"}"
         end
 
         @body += "]}"
