@@ -51,6 +51,7 @@
 
                                 function updatePlaylist() {
                                         $("#playlist").html("");
+                                        lastAlbum = "";
 
                                         $.getJSON("/playlist", function (data) {
                                                 $.each(data.items, function (i, item) {
