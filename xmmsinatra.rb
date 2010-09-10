@@ -12,7 +12,7 @@ end
 get '/style.css' do
         content_type "text/css"
 
-        erb :style
+        File.read('style.css')
 end
 
 get '/info' do
@@ -45,6 +45,18 @@ get '/playlist' do
 
         @body += "]}"
         @body
+end
+
+get '/art/:id' do |id|
+        content_type "image/jpeg"
+
+        @info = xmms.medialib_get_info(id.to_i).wait.value.to_propdict
+
+        if (@info[:picture_front])
+                xmms.bindata_retrieve(@info[:picture_front]).wait.value
+        else
+                File.read('nocover.png')
+        end
 end
 
 get '/search/:query' do |query|
