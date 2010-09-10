@@ -8,7 +8,7 @@
         </head>
         <body>
                 <div id="header">
-                        XMMSinatra
+                        <a href="http://github.com/ZaneA/XMMSinatra" target="_blank">XMMSinatra</a>
                 </div>
 
                 <div id="info">
@@ -62,15 +62,16 @@
                                                         }
 
                                                         if (item.id == $("#id").html()) {
-                                                                $("#playlist").append("<div class=\"item active\"><span class=\"pid\">" + i + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                                $("#playlist").append("<div class=\"item active\"><span class=\"pid\">" + (i + 1) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
                                                         } else {
-                                                                $("#playlist").append("<div class=\"item\"><span class=\"pid\">" + i + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
+                                                                $("#playlist").append("<div class=\"item\"><span class=\"pid\">" + (i + 1) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
                                                         }
                                                 });
 
                                                 $(".item").click(function () {
-                                                        $.get('/select/' + $(this).find(".pid").html());
-                                                        setTimeout(updateInfo, 500);
+                                                        $.get('/select/' + $(this).find(".pid").html(), function () {
+                                                                setTimeout(updateInfo, 100);
+                                                        });
                                                 });
                                         });
                                 };
@@ -80,34 +81,38 @@
 
                                 $("#pause").click(function () {
                                         $.get('/pause');
-                                        setTimeout(updateInfo, 500);
                                 });
 
                                 $("#play").click(function () {
-                                        $.get('/play');
-                                        setTimeout(updateInfo, 500);
+                                        $.get('/play', function () {
+                                                setTimeout(updateInfo, 100);
+                                        });
                                 });
 
                                 $("#previous").click(function () {
-                                        $.get('/prev');
-                                        setTimeout(updateInfo, 500);
+                                        $.get('/prev', function () {
+                                                setTimeout(updateInfo, 100);
+                                        });
                                 });
 
                                 $("#next").click(function () {
-                                        $.get('/next');
-                                        setTimeout(updateInfo, 500);
+                                        $.get('/next', function () {
+                                                setTimeout(updateInfo, 100);
+                                        });
                                 });
 
-                                $("#search").keyup(function (event) {
-                                        if (event.keyCode == '13') {
-                                                $.get("/search/" + $("#search").val());
-                                                setTimeout(updatePlaylist, 500);
+                                $("#search").keydown(function (event) {
+                                        if (event.which == 13) {
+                                                $.get("/search/" + $("#search").val(), function () {
+                                                        setTimeout(updatePlaylist, 100);
+                                                });
                                         }
                                 });
 
                                 $(".item").click(function () {
-                                        $.get('/select/' + $(this).find(".pid").html());
-                                        setTimeout(updateInfo, 500);
+                                        $.get('/select/' + $(this).find(".pid").html(), function () {
+                                                setTimeout(updateInfo, 100);
+                                        });
                                 });
                         });
                 </script>

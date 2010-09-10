@@ -75,7 +75,7 @@ get '/search/:query' do |query|
 end
 
 get '/select/:id' do |id|
-        xmms.playlist_set_next(id.to_i).wait
+        xmms.playlist_set_next(id.to_i - 1).wait
         xmms.playback_tickle.wait
 end
 

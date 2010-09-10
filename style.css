@@ -9,12 +9,13 @@ html, body {
         font-size: 12pt;
 }
 
-#header {
+#header a {
         font-size: 64pt;
         color: #282828;
         position: absolute;
         top: 40px;
         right: 60px;
+        text-decoration: none;
 }
 
 #menu li {
@@ -42,6 +43,7 @@ html, body {
         border: none;
         color: #aaa;
         font-style: italic;
+        width: 260px;
 }
 
 #menu a {
@@ -84,11 +86,10 @@ html, body {
         padding: 16px;
         color: #666;
         font-family: corbel, sans;
-        font-weight: 0;
 }
 
 .albumitem {
-        margin-top: 4px;
+        margin: 15px 0 5px 0;
         padding: 4px;
         font-size: 14pt;
         border-bottom: 1px solid #444;
