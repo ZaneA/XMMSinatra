@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require 'rubygems'
 require 'sinatra'
 require 'erb'
@@ -8,12 +9,6 @@ xmms = Xmms::Client.new('XMMSinatra').connect(ENV['XMMS_PATH'])
 get '/' do
         erb :index
 end 
-
-get '/style.css' do
-        content_type "text/css"
-
-        File.read('style.css')
-end
 
 get '/info' do
         content_type "text/json"

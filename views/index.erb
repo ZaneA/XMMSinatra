@@ -20,11 +20,11 @@
 
                 <div id="menu">
                         <ul>
-                                <li><a id="previous"><img src="http://cdn.dustball.com/control_start_blue.png" /> Previous</a></li>
-                                <li><a id="next"><img src="http://cdn.dustball.com/control_end_blue.png" /> Next</a></li>
-                                <li><a id="pause"><img src="http://cdn.dustball.com/control_pause_blue.png" /> Pause</a></li>
-                                <li><a id="play"><img src="http://cdn.dustball.com/control_play_blue.png" /> Play</a></li>
-                                <li><img src="http://cdn.dustball.com/music.png" /></li>
+                                <li><a id="previous"><img src="media-previous-inv.png" /> Previous</a></li>
+                                <li><a id="next"><img src="media-next-inv.png" /> Next</a></li>
+                                <li><a id="pause"><img src="media-pause-inv.png" /> Pause</a></li>
+                                <li><a id="play"><img src="media-play-inv.png" /> Play</a></li>
+                                <li><img src="media-headphones-inv.png" /></li>
                                 <li><input type="text" id="search" value="Search" /></li>
                         </ul>
                 </div>
@@ -69,9 +69,8 @@
                                                 });
 
                                                 $(".item").click(function () {
-                                                        $.get('/select/' + $(this).find(".pid").html(), function () {
-                                                                setTimeout(updateInfo, 100);
-                                                        });
+                                                        $.get('/select/' + $(this).find(".pid").html());
+                                                        setTimeout(updateInfo, 500);
                                                 });
                                         });
                                 };
@@ -84,35 +83,30 @@
                                 });
 
                                 $("#play").click(function () {
-                                        $.get('/play', function () {
-                                                setTimeout(updateInfo, 100);
-                                        });
+                                        $.get('/play');
+                                        setTimeout(updateInfo, 500);
                                 });
 
                                 $("#previous").click(function () {
-                                        $.get('/prev', function () {
-                                                setTimeout(updateInfo, 100);
-                                        });
+                                        $.get('/prev');
+                                        setTimeout(updateInfo, 500);
                                 });
 
                                 $("#next").click(function () {
-                                        $.get('/next', function () {
-                                                setTimeout(updateInfo, 100);
-                                        });
+                                        $.get('/next');
+                                        setTimeout(updateInfo, 500);
                                 });
 
                                 $("#search").keydown(function (event) {
                                         if (event.which == 13) {
-                                                $.get("/search/" + $("#search").val(), function () {
-                                                        setTimeout(updatePlaylist, 100);
-                                                });
+                                                $.get("/search/" + $("#search").val());
+                                                setTimeout(updatePlaylist, 500);
                                         }
                                 });
 
                                 $(".item").click(function () {
-                                        $.get('/select/' + $(this).find(".pid").html(), function () {
-                                                setTimeout(updateInfo, 100);
-                                        });
+                                        $.get('/select/' + $(this).find(".pid").html());
+                                        setTimeout(updateInfo, 500);
                                 });
                         });
                 </script>
