@@ -58,7 +58,7 @@
                                                         if (lastAlbum != item.album) {
                                                                 lastAlbum = item.album;
                                                                 $("#playlist").append("<div class=\"albumitem\">" + item.album + "</div>");
-                                                                $("#playlist").append("<img class=\"albumart\" src=\"/art/" + item.id + "\" />");
+                                                                $("#playlist").append("<div class=\"albumartwrap\"><img class=\"albumart\" src=\"/art/" + item.id + "\" /></div>");
                                                         }
 
                                                         if (item.id == $("#id").html()) {
