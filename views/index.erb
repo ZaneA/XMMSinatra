@@ -36,6 +36,13 @@
                         $(function () {
                                 var lastAlbum = "";
 
+                                $("#playlist").click(function (e) {
+                                        if ($(e.target).parent().is(".item")) {
+                                                $.get('/select/' + $(e.target).parent().find(".pid").html());
+                                                setTimeout(updateInfo, 500);
+                                        }
+                                });
+
                                 function updateInfo() {
                                         $.getJSON("/info", function (data) {
                                                 if (data.id != $("#id").html()) {
@@ -66,11 +73,6 @@
                                                         } else {
                                                                 $("#playlist").append("<div class=\"item\"><span class=\"pid\">" + (i + 1) + "</span><span class=\"id\">" + item.id + "</span><span class=\"artist\">" + item.artist + "</span><span class=\"title\">" + item.title + "</span></div>");
                                                         }
-                                                });
-
-                                                $(".item").click(function () {
-                                                        $.get('/select/' + $(this).find(".pid").html());
-                                                        setTimeout(updateInfo, 500);
                                                 });
                                         });
                                 };
