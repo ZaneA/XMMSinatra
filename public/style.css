@@ -18,6 +18,10 @@ html, body {
         text-decoration: none;
 }
 
+#menu ul {
+        display: inline-block;
+}
+
 #menu li {
         display: inline-block;
         background: #242424;
@@ -39,11 +43,15 @@ html, body {
 }
 
 #search {
-        background: transparent;
+        background: transparent url('search-inv.png') no-repeat right;
         border: none;
         color: #aaa;
         font-style: italic;
         width: 260px;
+}
+
+.invalid {
+        color: #b66 !important;
 }
 
 #menu a {
@@ -149,8 +157,9 @@ html, body {
 
 .item.active {
         color: #fff;
-        padding: 6px;
-        font-family: "Droid Sans", corbel, sans;
+        background-image: url('media-play-inv.png');
+        background-position: left;
+        background-repeat: no-repeat;
 }
 
 .item.active .artist {

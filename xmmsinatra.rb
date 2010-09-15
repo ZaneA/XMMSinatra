@@ -80,12 +80,12 @@ get '/select/:id' do |id|
         Conn.playback_tickle.wait
 end
 
-get '/pause' do
-        Conn.playback_pause.wait
-end
-
-get '/play' do
-        Conn.playback_start.wait
+get '/playpause' do
+        if (Conn.playback_status.wait.value == Xmms::Client::PLAY)
+                Conn.playback_pause.wait
+        else
+                Conn.playback_start.wait
+        end
 end
 
 get '/prev' do

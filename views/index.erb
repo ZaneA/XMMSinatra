@@ -5,6 +5,7 @@
                 <title>XMMSinatra</title>
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
                 <link rel="stylesheet" type="text/css" href="style.css" />
+                <link rel="icon" type="image/png" href="/favicon.ico" />
         </head>
         <body>
                 <div id="header">
@@ -22,9 +23,9 @@
                         <ul>
                                 <li><a id="previous"><img src="media-previous-inv.png" /> Previous</a></li>
                                 <li><a id="next"><img src="media-next-inv.png" /> Next</a></li>
-                                <li><a id="pause"><img src="media-pause-inv.png" /> Pause</a></li>
-                                <li><a id="play"><img src="media-play-inv.png" /> Play</a></li>
-                                <li><img src="media-headphones-inv.png" /></li>
+                                <li><a id="playpause"><img src="media-play-pause-resume-inv.png" /> Play/Pause</a></li>
+                        </ul>
+                        <ul>
                                 <li><input type="text" id="search" value="Search" /></li>
                         </ul>
                 </div>
@@ -48,8 +49,8 @@
                                                 if (data.id != $("#id").html()) {
                                                         $("#id").html(data.id);
                                                         $("#artist").html(data.artist);
-                                                        $("#title").html(data.title);
-                                                        $("#album").html(data.album);
+                                                        $("#title").html(data.title.replace(/ \(.*?\)/, ''));
+                                                        $("#album").html(data.album.replace(/ \(.*?\)/, ''));
                                                         document.title = data.title + " - " + data.artist + " - XMMSinatra";
                                                         updatePlaylist();
                                                 }
@@ -80,13 +81,8 @@
                                 updateInfo();
                                 setInterval(updateInfo, 10000);
 
-                                $("#pause").click(function () {
-                                        $.get('/pause');
-                                });
-
-                                $("#play").click(function () {
-                                        $.get('/play');
-                                        setTimeout(updateInfo, 500);
+                                $("#playpause").click(function () {
+                                        $.get('/playpause');
                                 });
 
                                 $("#previous").click(function () {
@@ -100,9 +96,15 @@
                                 });
 
                                 $("#search").keydown(function (event) {
+                                        $("#search").removeClass("invalid");
+
                                         if (event.which == 13) {
-                                                $.get("/search/" + $("#search").val());
-                                                setTimeout(updatePlaylist, 500);
+                                                $.get("/search/" + $("#search").val(), function (data) {
+                                                        if (data == "OK")
+                                                                updatePlaylist();
+                                                        else
+                                                                $("#search").addClass("invalid");
+                                                });
                                         }
                                 });
 
