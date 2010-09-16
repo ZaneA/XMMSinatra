@@ -19,7 +19,12 @@ get '/info' do
                 %({"id": "", "artist": "", "album": "", "title": ""})
         else
                 info = Conn.medialib_get_info(id).wait.value.to_propdict
-                %({"id": "#{info[:id]}", "artist": "#{info[:artist]}", "album": "#{info[:album]}", "title": "#{info[:title]}"})
+                if (!info[:title].nil?)
+                        title = info[:title]
+                else
+                        title = info[:url]
+                end
+                %({"id": "#{info[:id]}", "artist": "#{info[:artist]}", "album": "#{info[:album]}", "title": "#{title}"})
         end
 end
 
@@ -35,7 +40,12 @@ get '/playlist' do
                 if (!index.zero?)
                         body += ','
                 end
-                body += %({"id": "#{info[:id]}", "artist": "#{info[:artist]}", "album": "#{info[:album]}", "title": "#{info[:title]}"})
+                if (!info[:title].nil?)
+                        title = info[:title]
+                else
+                        title = info[:url]
+                end
+                body += %({"id": "#{info[:id]}", "artist": "#{info[:artist]}", "album": "#{info[:album]}", "title": "#{title}"})
         end
 
         body += ']}'
