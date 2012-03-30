@@ -16,6 +16,7 @@ html, body {
         top: 40px;
         right: 60px;
         text-decoration: none;
+        display: none;
 }
 
 #menu ul {
